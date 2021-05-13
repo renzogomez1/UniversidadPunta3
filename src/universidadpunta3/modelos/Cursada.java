@@ -30,4 +30,37 @@ public class Cursada {
         this.materia = materia;
         this.nota = nota;
     }
+
+    public int getId_cursada() {
+        return id_cursada;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void setId_cursada(int id_cursada) {
+        this.id_cursada = id_cursada;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
+    
 }
