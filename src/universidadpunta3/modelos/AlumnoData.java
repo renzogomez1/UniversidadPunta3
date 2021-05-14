@@ -8,8 +8,7 @@ package universidadpunta3.modelos;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import universidadpunta3.modelos.*;
 
 
@@ -25,7 +24,7 @@ public class AlumnoData {
         try {
             con = conexion.getConexion();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error al conectarse."+ex.getMessage());
         }
         
     }
@@ -33,22 +32,24 @@ public class AlumnoData {
     public void guardarAlumno(Alumno alumno){
         
         try{ 
-          String sql= "INSERT INTO alumno(nombre, fecNac, activo) VALUES (?,?,?)"; 
+          String sql= "INSERT INTO alumno(legajo, nombre, apellido, fechaNac, estado) VALUES (?,?,?,?,?)"; 
           PreparedStatement ps= con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-          ps.setString(1,alumno.getNombre());
-          ps.setDate(2, Date.valueOf(alumno.getFechaNac()));
-          ps.setBoolean(3, alumno.isEstado());
+          ps.setInt(1, alumno.getLegajo());
+          ps.setString(2,alumno.getNombre());
+          ps.setString(3,alumno.getApellido());
+          ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
+          ps.setBoolean(5, alumno.isEstado());
           ps.executeUpdate();  //ACA SE GENERA EL AUTONUMERICO DEL ID
           ResultSet rs = ps.getGeneratedKeys();
           if (rs.next()){
           
-            alumno.setId_alumno(rs.getInt(1));
+            alumno.setId_alumno(rs.getInt("id_Alumno"));
           }
           
         ps.close();
         
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error al insertare el alumno."+ex.getMessage());
         }      
     
     }
@@ -56,27 +57,29 @@ public class AlumnoData {
     public void actualizarAlumno(Alumno alumno){
         
         try{ 
-          String sql= "UPDATE alumno SET nombre= ?, fecNac=?, activo=? WHERE id=?"; 
+                      
+          String sql= "UPDATE alumno SET nombre= ?, apellido=?, fechaNac=?, estado=? WHERE id_Alumno=?"; 
           PreparedStatement ps= con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
           ps.setString(1,alumno.getNombre());
-          ps.setDate(2, Date.valueOf(alumno.getFechaNac()));
-          ps.setBoolean(3, alumno.isEstado());
-          ps.setInt(4, alumno.getId_alumno());
+          ps.setString(2,alumno.getApellido());
+          ps.setDate(3, Date.valueOf(alumno.getFechaNac()));
+          ps.setBoolean(4, alumno.isEstado());
+          ps.setInt(5, alumno.getId_alumno());
           ps.executeUpdate();  
                     
           ps.close();
         
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error al actuaizar el alumno."+ex.getMessage());
         }
      
     
     }
     
-    public void borrarAlumno(int id){
+    public void borrarAlumnoFisico(int id){
         
         try{ 
-          String sql= "DELETE FROM alumno WHERE id=?"; 
+          String sql= "DELETE FROM alumno WHERE id_Alumno=?"; 
           PreparedStatement ps= con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
           ps.setInt(1,id);
           
@@ -85,18 +88,35 @@ public class AlumnoData {
           ps.close();
         
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error al borrar el alumno."+ex.getMessage());
         }
      
     
     }
+    public void borrarAlumnoLogico(int id){
+        
+        try{ 
+                      
+          String sql= "UPDATE alumno SET estado=0 WHERE id_Alumno=?"; 
+          PreparedStatement ps= con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+          ps.setInt(1,id);
+          ps.executeUpdate();  
+                    
+          ps.close();
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al borrar el alumno."+ex.getMessage());
+        }
+     
     
+    }
+        
     public Alumno buscarAlumno(int id){
     Alumno alumno=null;
     
     
         try{ 
-          String sql= "SELECT * FROM alumno WHERE id=?"; 
+          String sql= "SELECT * FROM alumno WHERE id_Alumno=?"; 
           PreparedStatement ps= con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
           ps.setInt(1,id);
           
@@ -104,24 +124,26 @@ public class AlumnoData {
           
           if (rs.next()){
               alumno=new Alumno();
-              alumno.setId_alumno(rs.getInt("id"));
+              alumno.setId_alumno(rs.getInt("id_Alumno"));
+              alumno.setLegajo(rs.getInt("legajo"));
               alumno.setNombre(rs.getString("nombre"));
-              alumno.setFechaNac(rs.getDate("fecNac").toLocalDate());
-              alumno.setEstado(rs.getBoolean("activo"));
+              alumno.setApellido(rs.getString("apellido"));
+              alumno.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+              alumno.setEstado(rs.getBoolean("estado"));
               
           }
                     
           ps.close();
         
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error al buscar el alumno."+ex.getMessage());
         }
     
     return alumno;
         
     }
     
-    public List<Alumno> obtenerAlumno(){
+    public List<Alumno> obtenerAlumnos(){
     List<Alumno> alumnos= new ArrayList<>();
     
     
@@ -133,17 +155,19 @@ public class AlumnoData {
           Alumno alumno;
           while (rs.next()){
               alumno=new Alumno();
-              alumno.setId_alumno(rs.getInt("id"));
+              alumno.setId_alumno(rs.getInt("id_Alumno"));
+              alumno.setLegajo(rs.getInt("legajo"));
               alumno.setNombre(rs.getString("nombre"));
-              alumno.setFechaNac(rs.getDate("fecNac").toLocalDate());
-              alumno.setEstado(rs.getBoolean("activo"));
+              alumno.setApellido(rs.getString("apellido"));
+              alumno.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+              alumno.setEstado(rs.getBoolean("estado"));
               alumnos.add(alumno);
           }
-                    
+          System.out.println(alumnos.toString());          
           ps.close();
         
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error al listar los alumno."+ex.getMessage());
         }
     
     return alumnos;

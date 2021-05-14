@@ -1,4 +1,4 @@
-/*
+        /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,7 @@ package universidadpunta3.modelos;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +21,7 @@ public class MateriaData {
         try {
             connection = conexion.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error al abrir al obtener la conexion");
+            JOptionPane.showMessageDialog(null, "error al conectarse."+ex.getMessage());    
         }
     }
     
@@ -28,51 +29,50 @@ public class MateriaData {
     public void guardarMateria(Materia materia){
         try {
             
-            String sql = "INSERT INTO materia (nombre) VALUES ( ? );";
+            String sql = "INSERT INTO materia (nomMateria, anioMateria, estado) VALUES ( ?,?,? )";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, materia.getMateriaMateria());
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, materia.getMateriaMateria());
+            ps.setInt(2, materia.getAnio());
+            ps.setBoolean(3, materia.isEstado());
+            ps.executeUpdate();
             
+            ResultSet rs = ps.getGeneratedKeys();
             
-            statement.executeUpdate();
-            
-            ResultSet rs = statement.getGeneratedKeys();
-
-            if (rs.next()) {
-                materia.setId_materia(rs.getInt(1));
+            if (rs.next()) {   
+                materia.setId_materia(rs.getInt("id_Materia"));
             } else {
-                System.out.println("No se pudo obtener el id luego de insertar una materia");
+                JOptionPane.showMessageDialog(null,"No se pudo obtener el id luego de insertar una materia");
             }
-            statement.close();
+            ps.close();
     
         } catch (SQLException ex) {
-            System.out.println("Error al insertar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al insertar una materia: " + ex.getMessage());
         }
     }
     
     public List<Materia> obtenerMaterias(){
-        List<Materia> materias = new ArrayList<Materia>();
-            
+        List<Materia> materias = new ArrayList<Materia>();   
 
         try {
             String sql = "SELECT * FROM materia;";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             Materia materia;
-            while(resultSet.next()){
+            while(rs.next()){
                 materia = new Materia();
-                materia.setId_materia(resultSet.getInt("id"));
-                materia.setMateriaMateria(resultSet.getString("nombre"));
-               
-
+                materia.setId_materia(rs.getInt("id_Materia"));
+                materia.setMateriaMateria(rs.getString("nomMateria"));
+                materia.setAnio(rs.getInt("anioMateria"));
+                materia.setEstado(rs.getBoolean("estado"));
                 materias.add(materia);
-            }      
-            statement.close();
+            } 
+            
+            ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener las materias: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al obtener las materias: " + ex.getMessage());
         }
-        
-        
+
         return materias;
     }
     
@@ -81,76 +81,82 @@ public class MateriaData {
         Materia materia=null;
     try {
             
-            String sql = "SELECT * FROM materia WHERE id =?;";
+            String sql = "SELECT * FROM materia WHERE id_Materia=?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, id);
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
            
             
-            ResultSet resultSet=statement.executeQuery();
+            ResultSet rs=ps.executeQuery();
             
-            while(resultSet.next()){
+            while(rs.next()){
                 materia = new Materia();
-                materia.setId_materia(resultSet.getInt("id"));
-                materia.setMateriaMateria(resultSet.getString("nombre"));
-               
-
-                
+                materia.setId_materia(rs.getInt("id_Materia"));
+                materia.setMateriaMateria(rs.getString("nomMateria"));
+                materia.setAnio(rs.getInt("anioMateria"));
+                materia.setEstado(rs.getBoolean("estado"));
             }      
-            statement.close();
-            
-            
-            
-            
+            ps.close();
+   
     
         } catch (SQLException ex) {
-            System.out.println("Error al insertar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al insertar una materia: " + ex.getMessage());
         }
         
         return materia;
     }
-    public void borrarMateria (int id){
+    public void borrarMateriaFisica(int id){
     
         
     try {
             
-            String sql = "DELETE FROM materia WHERE id =?;";
+            String sql = "DELETE FROM materia WHERE id_Materia=?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, id);
-           
-            
-            statement.executeUpdate();
-            
-            
-            statement.close();
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+
+            ps.close();
     
         } catch (SQLException ex) {
-            System.out.println("Error al borrar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al borrar una materia: " + ex.getMessage());
         }
-        
-    
-    
     }
     public void actualizarMateria(Materia materia){
     try {
             
-            String sql = "UPDATE materia SET nombre = ? WHERE id = ?;";
+            String sql = "UPDATE materia SET nomMateria = ?, anioMateria =?, estado =? WHERE id_Materia= ?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, materia.getMateriaMateria());
-            statement.setInt(2, materia.getId_materia());
-            statement.executeUpdate();
-            
-          
-            statement.close();
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, materia.getMateriaMateria());
+            ps.setInt(2, materia.getAnio());
+            ps.setBoolean(3, materia.isEstado());
+            ps.setInt(4, materia.getId_materia());
+            ps.executeUpdate();
+
+            ps.close();
     
         } catch (SQLException ex) {
-            System.out.println("Error al insertar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al actualizar una materia: " + ex.getMessage());
         }
-     
-        
+  
+    }
+    public void borrarMateriaLogica(int id){
+    try {
+            
+            String sql = "UPDATE materia SET estado =0 WHERE id_Materia= ?;";
+
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+            ps.close();
     
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al borrar una materia: " + ex.getMessage());
+        }
+  
     }
     }
     
