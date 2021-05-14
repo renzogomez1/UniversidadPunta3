@@ -30,7 +30,7 @@ public class CursadaData {
     public void guardarCursada(Cursada cursada){
         try {
             
-            String sql = "INSERT INTO cursada (idAlumno, idMateria, nota) VALUES ( ? , ? , ? );";
+            String sql = "INSERT INTO cursada (id_Alumno, id_Materia, calificacion) VALUES ( ? , ? , ? );";
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, cursada.getAlumno().getId_alumno());
