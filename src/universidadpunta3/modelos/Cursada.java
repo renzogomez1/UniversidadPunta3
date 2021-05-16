@@ -13,22 +13,25 @@ public class Cursada {
     private int id_cursada;
     private Alumno alumno;
     private Materia materia;
-    private int nota;
+    private float nota;
+    private boolean estado;
 
     public Cursada() {
     }
 
-    public Cursada(int id_cursada, Alumno alumno, Materia materia, int nota) {
+    public Cursada(int id_cursada, Alumno alumno, Materia materia, float nota, boolean estado) {
         this.id_cursada = id_cursada;
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
+        this.estado = estado;
     }
 
-    public Cursada(Alumno alumno, Materia materia, int nota) {
+    public Cursada(Alumno alumno, Materia materia, float nota, boolean estado) {
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
+        this.estado = estado;
     }
 
     public int getId_cursada() {
@@ -43,7 +46,7 @@ public class Cursada {
         return materia;
     }
 
-    public int getNota() {
+    public float getNota() {
         return nota;
     }
 
@@ -59,8 +62,21 @@ public class Cursada {
         this.materia = materia;
     }
 
-    public void setNota(int nota) {
+    public void setNota(float nota) {
         this.nota = nota;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Cursada{" + "id_cursada=" + id_cursada + ", alumno=" + alumno + ", materia=" + materia + ", nota=" + nota + '}';
     }
     
 }
