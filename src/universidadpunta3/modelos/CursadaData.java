@@ -128,8 +128,8 @@ public class CursadaData {
     List<Materia> materias = new ArrayList<>();       
 
         try {
-            String sql = "SELECT materia.id_Materia, nomMateria, anioMateria, materia.estado FROM inscripcion, materia" +
-                    "WHERE inscripcion.id_Materia = materia.id_Materia and inscripcion.estado = 1 and inscripcion.id_Alumno = ? ;";
+            String sql = "SELECT m.id_Materia, nomMateria, anioMateria, m.estado FROM inscripcion as i, materia as m " +
+                    "WHERE i.id_Materia = m.id_Materia and m.estado = 1 and i.estado = 1 and i.id_Alumno = ? ;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();

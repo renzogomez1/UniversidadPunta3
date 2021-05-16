@@ -8,7 +8,7 @@ package universidadpunta3;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import universidadpunta3.modelos.*;
-import java.time.*;
+
 
 /**
  *
@@ -35,6 +35,7 @@ public class UniversidadPunta3 {
 //            md.guardarMateria(m);
 //            Cursada cursada = new Cursada(a,m,7,true);
 //            cd.guardarCursada(cursada);
+            
             System.out.println(cd.obtenerMateriasCursadasXAlumno(6));
 //            AlumnoData ad = new AlumnoData(conexion);
 //            Alumno alumno1= new Alumno(2,"Renzo","Gomez",LocalDate.of(1999, 7, 20),1000,false);
