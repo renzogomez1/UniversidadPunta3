@@ -10,7 +10,7 @@ package universidadpunta3.modelos;
  * @author Asus
  */
 public class Materia {
-    private int id_materia;
+     private int id_materia;
     private String materiaMateria;
     private int anio;
     private boolean estado;
@@ -33,7 +33,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" + "id_materia=" + id_materia + ", materiaMateria=" + materiaMateria + ", anio=" + anio + ", estado=" + estado + '}';
+        return this.materiaMateria;
     }
 
     public int getId_materia() {

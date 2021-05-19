@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * @author Asus
  */
 public class Alumno {
-    private int id_alumno;
+     private int id_alumno;
     private String nombre;
     private String apellido;
     private LocalDate fechaNac;
@@ -41,7 +41,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "id_alumno=" + id_alumno + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac + ", legajo=" + legajo + ", estado=" + estado + '}';
+        return this.nombre+" "+this.apellido;
     }
 
     public int getId_alumno() {

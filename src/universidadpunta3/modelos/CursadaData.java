@@ -43,14 +43,15 @@ public class CursadaData {
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
-                cursada.setId_cursada(rs.getInt("id_inscripcion"));
+                cursada.setId_cursada(rs.getInt("id_Inscripcion"));
             } else {
                 JOptionPane.showMessageDialog(null,"No se pudo obtener el id luego de insertar una inscripción");
             }
             ps.close();
-    
+            //Notificamos que se guardo
+            JOptionPane.showMessageDialog(null,"La Inscripcion se realizo con exito");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al insertar una inscripción: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al realizar la inscripción: " + ex.getMessage());
         }
     }
     
@@ -65,7 +66,7 @@ public class CursadaData {
             
             while(rs.next()){
                 cursada = new Cursada();
-                cursada.setId_cursada(rs.getInt("id_inscripcion"));               
+                cursada.setId_cursada(rs.getInt("id_Inscripcion"));               
                 Alumno alumno = buscarAlumno(rs.getInt("id_Alumno"));
                 cursada.setAlumno(alumno);              
                 Materia materia = buscarMateria(rs.getInt("id_Materia"));
@@ -76,7 +77,7 @@ public class CursadaData {
             }      
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al obtener los inscriptos: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al obtener la cursada: " + ex.getMessage());
         }       
         return cursadas;
     }
@@ -104,7 +105,7 @@ public class CursadaData {
             }      
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al obtener los alumnos: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al obtener las cursadas por alumnos: " + ex.getMessage());
         }       
         return cursadas;
     }
@@ -144,7 +145,7 @@ public class CursadaData {
             }      
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al obtener las materias: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al obtener las materias por alumno " + ex.getMessage());
         }
 
         return materias;
@@ -190,7 +191,8 @@ public class CursadaData {
             ps.executeUpdate();
 
             ps.close();
-    
+        //Notificamos que se borro
+        JOptionPane.showMessageDialog(null,"La cursada se borro correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al borrar una inscripción: " + ex.getMessage());
         }
@@ -210,7 +212,8 @@ public class CursadaData {
             ps.executeUpdate();
 
             ps.close();
-    
+        //Notificamos que se actualizo
+        JOptionPane.showMessageDialog(null, "La nota se actualizo correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al actualizar la nota: " + ex.getMessage());
         }
@@ -229,9 +232,10 @@ public class CursadaData {
             ps.executeUpdate();
 
             ps.close();
-    
+        //notificamos que se borro
+        JOptionPane.showMessageDialog(null, "La cursada se borro correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al borrar una inscripcion: " + ex.getMessage());
         }
-    }    
+    }  
 }

@@ -17,7 +17,7 @@ import universidadpunta3.modelos.*;
  * @author Admin
  */
 public class AlumnoData {
-    private Connection con;
+     private Connection con;
     
     public AlumnoData(Conexion conexion ){
         
@@ -47,9 +47,11 @@ public class AlumnoData {
           }
           
         ps.close();
-        
+        //Notificamos que se guardo
+        JOptionPane.showMessageDialog(null,"El alumno: "+alumno.getApellido()+" se guardo correctamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al insertare el alumno."+ex.getMessage());
+            //Notificamos que hubo un error, y el origen del error
+            JOptionPane.showMessageDialog(null, "Error al insertar el alumno. "+alumno.getApellido()+" "+ex.getMessage());
         }      
     
     }
@@ -68,9 +70,11 @@ public class AlumnoData {
           ps.executeUpdate();  
                     
           ps.close();
-        
+            //Notificamos que se actualizo  
+            JOptionPane.showMessageDialog(null,"El alumno se actualizo correctamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al actuaizar el alumno."+ex.getMessage());
+            //Notificamos que hubo un error al actualizar el alumno, y el origen del error
+            JOptionPane.showMessageDialog(null, "error al actuaizar el alumno: "+alumno.getApellido()+" "+ex.getMessage());
         }
      
     
@@ -86,9 +90,11 @@ public class AlumnoData {
           ps.executeUpdate();  
                     
           ps.close();
-        
+         //Notificamos que se borro
+        JOptionPane.showMessageDialog(null,"El alumno se borro corectamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al borrar el alumno."+ex.getMessage());
+           JOptionPane.showMessageDialog(null, "error al borrar el alumno "+ex.getMessage());
+        
         }
      
     
@@ -103,9 +109,10 @@ public class AlumnoData {
           ps.executeUpdate();  
                     
           ps.close();
-        
+        //Notificamos que se borro
+        JOptionPane.showMessageDialog(null,"El alumno: "+buscarAlumno(id).getApellido()+" se borro corectamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al borrar el alumno."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "error al borrar el alumno: "+buscarAlumno(id).getApellido()+" "+ex.getMessage());
         }
      
     
@@ -163,11 +170,11 @@ public class AlumnoData {
               alumno.setEstado(rs.getBoolean("estado"));
               alumnos.add(alumno);
           }
-          System.out.println(alumnos.toString());          
+                    
           ps.close();
         
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al listar los alumno."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "error al listar los alumno. "+ex.getMessage());
         }
     
     return alumnos;

@@ -21,7 +21,7 @@ public class MateriaData {
         try {
             connection = conexion.getConexion();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al conectarse."+ex.getMessage());    
+            JOptionPane.showMessageDialog(null, "error al conectarse. "+ex.getMessage());    
         }
     }
     
@@ -45,7 +45,8 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null,"No se pudo obtener el id luego de insertar una materia");
             }
             ps.close();
-    
+            //Notificamos que se guardo correctamente
+            JOptionPane.showMessageDialog(null,"Materia: "+materia.getMateriaMateria()+" Guardada Correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al insertar una materia: " + ex.getMessage());
         }
@@ -118,9 +119,10 @@ public class MateriaData {
             ps.executeUpdate();
 
             ps.close();
-    
+         //Notificamos que se Borro
+         JOptionPane.showMessageDialog(null,"La materia se borro correctamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al borrar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al borrar la materia: " + ex.getMessage());
         }
     }
     public void actualizarMateria(Materia materia){
@@ -136,9 +138,10 @@ public class MateriaData {
             ps.executeUpdate();
 
             ps.close();
-    
+        //Notificamos que se actualizo
+        JOptionPane.showMessageDialog(null,"La materia se actualizo correctamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al actualizar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al actualizar la materia: "+materia.getMateriaMateria() + ex.getMessage());
         }
   
     }
@@ -152,9 +155,10 @@ public class MateriaData {
             ps.executeUpdate();
 
             ps.close();
-    
+        //Notificamos que se borro
+            JOptionPane.showMessageDialog(null,"La materia: "+buscarMateria(id).getMateriaMateria()+" Se borro correctamente");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al borrar una materia: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al borrar la materia: " +buscarMateria(id).getMateriaMateria()+" "+ ex.getMessage());
         }
   
     }
