@@ -82,6 +82,11 @@ public class Principal extends javax.swing.JFrame {
         jMAlumnos.setText("Alumnos");
 
         jMFormularioDeAlumnos.setText("Formulario De Alumnos");
+        jMFormularioDeAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMFormularioDeAlumnosActionPerformed(evt);
+            }
+        });
         jMAlumnos.add(jMFormularioDeAlumnos);
 
         jMenuBarra.add(jMAlumnos);
@@ -147,6 +152,17 @@ public class Principal extends javax.swing.JFrame {
         escritorio.add(am);
         escritorio.moveToFront(am);
     }//GEN-LAST:event_jMListadoDeAlumnosPorMateriaActionPerformed
+
+    private void jMFormularioDeAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioDeAlumnosActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaAlumnos alumnos = new VistaAlumnos();
+        alumnos.setVisible(true);
+        escritorio.add(alumnos);
+        escritorio.moveToFront(alumnos);
+                                    
+    }//GEN-LAST:event_jMFormularioDeAlumnosActionPerformed
 
     /**
      * @param args the command line arguments
