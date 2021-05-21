@@ -141,6 +141,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMFormularioDeMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioDeMateriasActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaMaterias am = new VistaMaterias();
+        am.setVisible(true);
+        escritorio.add(am);
+        escritorio.moveToFront(am);
     }//GEN-LAST:event_jMFormularioDeMateriasActionPerformed
 
     private void jMListadoDeAlumnosPorMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoDeAlumnosPorMateriaActionPerformed
