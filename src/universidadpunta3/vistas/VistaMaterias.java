@@ -8,6 +8,7 @@ package universidadpunta3.vistas;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import static java.util.Objects.isNull;
 import javax.swing.JOptionPane;
 import universidadpunta3.modelos.*;
 
@@ -213,6 +214,10 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
+        if (jTAnio.getText().isEmpty()||jTNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"no puede haber campos vacios");
+            return;
+        }
         String nombre=jTNombre.getText();
         int anio=Integer.parseInt(jTAnio.getText());
         Boolean estado = jCEstado.isEnabled();
@@ -253,22 +258,26 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
         // TODO add your handling code here:
+        if (jTID.getText().isEmpty()||jTAnio.getText().isEmpty()||jTNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"no puede haber campos vacios");
+            return;
+        }
         int id = Integer.parseInt(jTID.getText());
         Materia aux = materiaData.buscarMateria(id);
         if(aux!=null){
-        String nombre=jTNombre.getText();
-        int anio = Integer.parseInt(jTAnio.getText());
-        Boolean estado = jCEstado.isEnabled();
-        Materia materia = new Materia(id,nombre,anio,estado);
-        materiaData.actualizarMateria(materia);
-        jTID.setEnabled(false);
-        jTNombre.setEnabled(false);
-        jTAnio.setEnabled(false);
-        jCEstado.setEnabled(false);
-        jBBuscar.setEnabled(false);
-        jBActualizar.setEnabled(false);
-        jBBorrar.setEnabled(false);
-        jBGuardar.setEnabled(false);
+            String nombre=jTNombre.getText();
+            int anio = Integer.parseInt(jTAnio.getText());
+            Boolean estado = jCEstado.isEnabled();
+            Materia materia = new Materia(id,nombre,anio,estado);
+            materiaData.actualizarMateria(materia);
+            jTID.setEnabled(false);
+            jTNombre.setEnabled(false);
+            jTAnio.setEnabled(false);
+            jCEstado.setEnabled(false);
+            jBBuscar.setEnabled(false);
+            jBActualizar.setEnabled(false);
+            jBBorrar.setEnabled(false);
+            jBGuardar.setEnabled(false);
         }else{JOptionPane.showMessageDialog(this,"la materia que quiere actualizar no esta en la base de datos");}
     }//GEN-LAST:event_jBActualizarActionPerformed
 
