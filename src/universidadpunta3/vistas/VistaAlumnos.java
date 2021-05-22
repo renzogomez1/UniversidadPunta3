@@ -94,31 +94,49 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setText("Estado:");
 
+        jTID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTIDActionPerformed(evt);
+            }
+        });
         jTID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTIDKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTIDKeyTyped(evt);
             }
         });
 
         jTLegajo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTLegajoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTLegajoKeyTyped(evt);
             }
         });
 
         jTNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTNombreKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNombreKeyTyped(evt);
             }
         });
 
         jTApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTApellidoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTApellidoKeyTyped(evt);
             }
         });
 
         jBGuardar.setText("Guardar");
+        jBGuardar.setEnabled(false);
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGuardarActionPerformed(evt);
@@ -126,6 +144,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         });
 
         jBBorrar.setText("Borrar");
+        jBBorrar.setEnabled(false);
         jBBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBBorrarActionPerformed(evt);
@@ -133,6 +152,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         });
 
         jBActualizar.setText("Actualizar");
+        jBActualizar.setEnabled(false);
         jBActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBActualizarActionPerformed(evt);
@@ -147,9 +167,16 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         });
 
         jBBuscar.setText("Buscar");
+        jBBuscar.setEnabled(false);
         jBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBBuscarActionPerformed(evt);
+            }
+        });
+
+        jDFechaNac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jDFechaNacKeyReleased(evt);
             }
         });
 
@@ -250,27 +277,63 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void habilitarBotonGuardar(){
+        
+        
+        if(!jTLegajo.getText().isEmpty()&&!jTNombre.getText().isEmpty()&&!jTApellido.getText().isEmpty()&&!jTLegajo.getText().isEmpty()){
+        jBGuardar.setEnabled(true);
+        }else{jBGuardar.setEnabled(false);}
+    }
+    
+    private void habilitarBotonBuscar(){
+                 if(!jTID.getText().isEmpty()){
+                 jBBuscar.setEnabled(true);
+                 }else{jBBuscar.setEnabled(false);}   
+    }
+    
+    public void habilitarBotonBorrar(){
+        if(!jTID.getText().isEmpty()){
+        int aux = Integer.parseInt(jTID.getText());
+        Alumno alumno = alumnoData.buscarAlumno(aux);
+        if(alumno!=null && alumno.isEstado()!=false){
+        jBBorrar.setEnabled(true);
+        }else{jBBorrar.setEnabled(false);}
+        }
+       
+      
+    }
+    
+    private void habilitarBotonActualizar(){
+    
+        if(!jTLegajo.getText().isEmpty()&&!jTNombre.getText().isEmpty()&&!jTApellido.getText().isEmpty()&&!jTID.getText().isEmpty()){
+        jBActualizar.setEnabled(true);
+        }else{jBActualizar.setEnabled(false);}
+    
+    }
+    
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
-         String nombre=jTNombre.getText();
+        if(jDFechaNac.getDate()!=null){
+        String nombre=jTNombre.getText();
         String apellido=jTApellido.getText();
         int legajo = Integer.parseInt(jTLegajo.getText());
         LocalDate fechaNac=jDFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Boolean estado = jCEstado.isEnabled();
         Alumno alumno = new Alumno(nombre,apellido,fechaNac,legajo,estado);
         alumnoData.guardarAlumno(alumno);
+        
         jTID.setText(String.valueOf(alumno.getId_alumno()));
         jTID.setEnabled(false);
         jTNombre.setEnabled(false);
+        jBGuardar.setEnabled(false);
         jTApellido.setEnabled(false);
         jTLegajo.setEnabled(false);
         jDFechaNac.setEnabled(false);
         jCEstado.setEnabled(false);
-        jBBuscar.setEnabled(false);
-        jBActualizar.setEnabled(false);
-        jBBorrar.setEnabled(false);
-        jBGuardar.setEnabled(false);
+        }else{JOptionPane.showMessageDialog(this, "Ingrese una fecha valida");}
+        
+        
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBorrarActionPerformed
@@ -292,10 +355,11 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jTApellido.setEnabled(false);
         jTLegajo.setEnabled(false);
         jDFechaNac.setEnabled(false);
+        
+        jBBorrar.setEnabled(false);
         jBBuscar.setEnabled(false);
         jBActualizar.setEnabled(false);
-        jBBorrar.setEnabled(false);
-        jBGuardar.setEnabled(false);}
+        }
         else{JOptionPane.showMessageDialog(this, "El alumno que intenta borrar, no se encuentra en la base de datos");}
     }//GEN-LAST:event_jBBorrarActionPerformed
 
@@ -330,7 +394,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jTNombre.setText("");
         jTApellido.setText("");
         jTLegajo.setText("");
-        //jDFechaNac.setDateFormatString("");
+        jDFechaNac.setDate(null);
         jCEstado.setSelected(false);
             
          jTID.setEnabled(true);
@@ -339,10 +403,11 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jTLegajo.setEnabled(true);
         jDFechaNac.setEnabled(true);
         jCEstado.setEnabled(true);
-        jBBuscar.setEnabled(true);
-        jBActualizar.setEnabled(true);
-        jBBorrar.setEnabled(true);
-        jBGuardar.setEnabled(true);
+        
+        jBActualizar.setEnabled(false);
+        jBGuardar.setEnabled(false);
+        jBBorrar.setEnabled(false);
+        
         
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
@@ -358,7 +423,11 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jCEstado.setSelected(alumno.isEstado());
         jBBuscar.setEnabled(false);
         jBGuardar.setEnabled(false);
-        }else{JOptionPane.showMessageDialog(this, "El id que ingreso no esta registrado en la base de datos");}
+        jBActualizar.setEnabled(true);
+        jBGuardar.setEnabled(false);
+        }
+        else{JOptionPane.showMessageDialog(this, "El id que ingreso no esta registrado en la base de datos");}
+        
         
     }//GEN-LAST:event_jBBuscarActionPerformed
 
@@ -402,6 +471,40 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTLegajoKeyTyped
 
+    private void jTIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTIDActionPerformed
+
+    private void jTLegajoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTLegajoKeyReleased
+        // TODO add your handling code here:
+        habilitarBotonGuardar();
+        habilitarBotonActualizar();
+    }//GEN-LAST:event_jTLegajoKeyReleased
+
+    private void jTNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNombreKeyReleased
+        // TODO add your handling code here:
+        habilitarBotonGuardar();
+        habilitarBotonActualizar();
+    }//GEN-LAST:event_jTNombreKeyReleased
+
+    private void jTApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTApellidoKeyReleased
+        // TODO add your handling code here:
+        habilitarBotonGuardar();
+        habilitarBotonActualizar();
+    }//GEN-LAST:event_jTApellidoKeyReleased
+
+    private void jDFechaNacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDFechaNacKeyReleased
+        // TODO add your handling code here:
+        
+        habilitarBotonGuardar();
+    }//GEN-LAST:event_jDFechaNacKeyReleased
+
+    private void jTIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTIDKeyReleased
+        // TODO add your handling code here:
+        habilitarBotonBuscar();
+        habilitarBotonBorrar();
+        habilitarBotonActualizar();
+    }//GEN-LAST:event_jTIDKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBActualizar;
