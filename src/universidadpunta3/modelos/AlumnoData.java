@@ -181,6 +181,35 @@ public class AlumnoData {
         
     }
     
+     public List<Alumno> obtenerAlumnosPorEstado(int estado){
+    List<Alumno> alumnos= new ArrayList<>();
     
+    
+        try{ 
+          String sql= "SELECT * FROM alumno WHERE estado=?"; 
+          PreparedStatement ps= con.prepareStatement(sql);
+          ps.setInt(1,estado);
+          ResultSet rs=ps.executeQuery();  
+          Alumno alumno;
+          while (rs.next()){
+              alumno=new Alumno();
+              alumno.setId_alumno(rs.getInt("id_Alumno"));
+              alumno.setLegajo(rs.getInt("legajo"));
+              alumno.setNombre(rs.getString("nombre"));
+              alumno.setApellido(rs.getString("apellido"));
+              alumno.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+              alumno.setEstado(rs.getBoolean("estado"));
+              alumnos.add(alumno);
+          }
+                    
+          ps.close();
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al listar los alumno. "+ex.getMessage());
+        }
+    
+    return alumnos;
+        
+    }   
     
 }

@@ -162,6 +162,31 @@ public class MateriaData {
         }
   
     }
+    public List<Materia> obtenerMateriasPorEstado(int estado){
+        List<Materia> materias = new ArrayList<Materia>();   
+
+        try {
+            String sql = "SELECT * FROM materia WHERE ESTADO=?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1,estado);
+            ResultSet rs = ps.executeQuery();
+            Materia materia;
+            while(rs.next()){
+                materia = new Materia();
+                materia.setId_materia(rs.getInt("id_Materia"));
+                materia.setMateriaMateria(rs.getString("nomMateria"));
+                materia.setAnio(rs.getInt("anioMateria"));
+                materia.setEstado(rs.getBoolean("estado"));
+                materias.add(materia);
+            } 
+            
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al obtener las materias: " + ex.getMessage());
+        }
+
+        return materias;
+    }
     }
     
 

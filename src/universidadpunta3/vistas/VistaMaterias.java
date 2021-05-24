@@ -147,9 +147,7 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel5)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(30, 30, 30)
-                                    .addComponent(jLabel7)))
+                                .addComponent(jLabel7))
                             .addGap(35, 35, 35)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTID)
@@ -182,10 +180,11 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar)
-                    .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -220,7 +219,7 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         }
         String nombre=jTNombre.getText();
         int anio=Integer.parseInt(jTAnio.getText());
-        Boolean estado = jCEstado.isEnabled();
+        Boolean estado = Boolean.parseBoolean(jCEstado.getText());
         Materia materia = new Materia(nombre, anio, estado);
         materiaData.guardarMateria(materia);
         jTID.setText(String.valueOf(materia.getId_materia()));
@@ -267,7 +266,7 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         if(aux!=null){
             String nombre=jTNombre.getText();
             int anio = Integer.parseInt(jTAnio.getText());
-            Boolean estado = jCEstado.isEnabled();
+            Boolean estado = Boolean.parseBoolean(jCEstado.getText());
             Materia materia = new Materia(id,nombre,anio,estado);
             materiaData.actualizarMateria(materia);
             jTID.setEnabled(false);

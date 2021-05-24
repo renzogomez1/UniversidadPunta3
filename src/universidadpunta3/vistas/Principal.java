@@ -5,6 +5,10 @@
  */
 package universidadpunta3.vistas;
 
+import universidadpunta3.modelos.Conexion;
+import universidadpunta3.modelos.Materia;
+import universidadpunta3.modelos.MateriaData;
+
 /**
  *
  * @author Emiliano
@@ -41,6 +45,8 @@ public class Principal extends javax.swing.JFrame {
         jMManejoDeNotas = new javax.swing.JMenuItem();
         jMConsultas = new javax.swing.JMenu();
         jMListadoDeAlumnosPorMateria = new javax.swing.JMenuItem();
+        jMListadoAlumnos = new javax.swing.JMenuItem();
+        jMListadoMaterias = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +100,11 @@ public class Principal extends javax.swing.JFrame {
         jMInscripciones.setText("Inscripciones");
 
         jMManejoDeInscripciones.setText("Manejo De Inscripciones");
+        jMManejoDeInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMManejoDeInscripcionesActionPerformed(evt);
+            }
+        });
         jMInscripciones.add(jMManejoDeInscripciones);
 
         jMenuBarra.add(jMInscripciones);
@@ -114,6 +125,23 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMConsultas.add(jMListadoDeAlumnosPorMateria);
+
+        jMListadoAlumnos.setText("Listado de Alumnos");
+        jMListadoAlumnos.setActionCommand("Listado De Alumnos");
+        jMListadoAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListadoAlumnosActionPerformed(evt);
+            }
+        });
+        jMConsultas.add(jMListadoAlumnos);
+
+        jMListadoMaterias.setText("Listado De Materias");
+        jMListadoMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListadoMateriasActionPerformed(evt);
+            }
+        });
+        jMConsultas.add(jMListadoMaterias);
 
         jMenuBarra.add(jMConsultas);
 
@@ -170,6 +198,36 @@ public class Principal extends javax.swing.JFrame {
                                     
     }//GEN-LAST:event_jMFormularioDeAlumnosActionPerformed
 
+    private void jMListadoAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoAlumnosActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ListadoAlumnos la = new ListadoAlumnos();
+        la.setVisible(true);
+        escritorio.add(la);
+        escritorio.moveToFront(la);
+    }//GEN-LAST:event_jMListadoAlumnosActionPerformed
+
+    private void jMManejoDeInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoDeInscripcionesActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaInscripcion vi = new VistaInscripcion();
+        vi.setVisible(true);
+        escritorio.add(vi);
+        escritorio.moveToFront(vi);
+    }//GEN-LAST:event_jMManejoDeInscripcionesActionPerformed
+
+    private void jMListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoMateriasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ListadoMaterias lm = new ListadoMaterias();
+        lm.setVisible(true);
+        escritorio.add(lm);
+        escritorio.moveToFront(lm);
+    }//GEN-LAST:event_jMListadoMateriasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,7 +272,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMFormularioDeAlumnos;
     private javax.swing.JMenuItem jMFormularioDeMaterias;
     private javax.swing.JMenu jMInscripciones;
+    private javax.swing.JMenuItem jMListadoAlumnos;
     private javax.swing.JMenuItem jMListadoDeAlumnosPorMateria;
+    private javax.swing.JMenuItem jMListadoMaterias;
     private javax.swing.JMenuItem jMManejoDeInscripciones;
     private javax.swing.JMenuItem jMManejoDeNotas;
     private javax.swing.JMenuItem jMSalir;

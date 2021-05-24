@@ -9,65 +9,46 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import universidadpunta3.modelos.Alumno;
-import universidadpunta3.modelos.AlumnoData;
-import universidadpunta3.modelos.Conexion;
-import universidadpunta3.modelos.Cursada;
-import universidadpunta3.modelos.CursadaData;
-import universidadpunta3.modelos.Materia;
-import universidadpunta3.modelos.MateriaData;
+import universidadpunta3.modelos.*;
+
 
 /**
  *
  * @author Asus
  */
-public class ListadoAlumnosXMaterias extends javax.swing.JInternalFrame {
+public class ListadoMaterias extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
-    private ArrayList<Cursada> listaCursada;
-    private ArrayList<Materia> listaMaterias;
-    private CursadaData cd;
     private MateriaData md;
-    private AlumnoData ad;
-    private ArrayList<Alumno> listaAlumnos;
+    private ArrayList<Materia> listaMaterias;
     private Conexion conexion;
     /**
      * Creates new form ListadoAlumnosXMaterias
      */
-    public ListadoAlumnosXMaterias() {
+    public ListadoMaterias()  {
+        initComponents();
         try {
-            initComponents();
             conexion = new Conexion("jdbc:mysql://localhost/universidadgrupo3", "root", "");
             modelo = new DefaultTableModel();
-            cd = new CursadaData(conexion);
-            listaCursada = (ArrayList)cd.obtenerCursadas();
             md = new MateriaData(conexion);
-            listaMaterias = (ArrayList)md.obtenerMaterias();
-            ad = new AlumnoData(conexion);
-            listaAlumnos = (ArrayList)ad.obtenerAlumnos();
-            cargarMaterias();
+            
             armarCabeceraTabla();
             cargaDatos();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ListadoAlumnosXMaterias.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoMaterias.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void cargarMaterias(){
-        for(Materia item : listaMaterias){
-            cbMenu.addItem(item);
-        }
-    }
-    
+ 
     public void armarCabeceraTabla(){
         ArrayList<Object> cabecera = new ArrayList<Object>();
-        cabecera.add("ID");
+        cabecera.add("Id");
         cabecera.add("Nombre");
-        cabecera.add("Nota");
+        cabecera.add("Año");
+        cabecera.add("Estado");
         
         for (Object ol : cabecera){
             modelo.addColumn(ol);
         }
-        tAlumnos.setModel(modelo);
+        tMaterias.setModel(modelo);
     } 
     
     public void borrarFilasTabla(){
@@ -79,11 +60,16 @@ public class ListadoAlumnosXMaterias extends javax.swing.JInternalFrame {
     
     public void cargaDatos(){
         borrarFilasTabla();
-        Materia mat = (Materia)cbMenu.getSelectedItem();
-        for (Cursada mt : listaCursada){
-            if(mt.getMateria().getId_materia() == mat.getId_materia()){
-                modelo.addRow(new Object[]{mt.getAlumno().getId_alumno(),mt.getAlumno().getNombre(), mt.getNota()});
-            }
+        String opcion = (String)cbEstado.getSelectedItem();
+        
+        switch (opcion) {
+            case "activas" : listaMaterias = (ArrayList)md.obtenerMateriasPorEstado(1); break;
+            case "inactivas" : listaMaterias = (ArrayList)md.obtenerMateriasPorEstado(0); break;
+            case "todas" : listaMaterias = (ArrayList)md.obtenerMaterias(); break;
+        }
+
+        for (Materia ma : listaMaterias) {       
+            modelo.addRow(new Object[]{ma.getId_materia(), ma.getMateriaMateria(), ma.getAnio(), ma.isEstado()});
         }
     }
     /**
@@ -99,8 +85,8 @@ public class ListadoAlumnosXMaterias extends javax.swing.JInternalFrame {
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tAlumnos = new javax.swing.JTable();
-        cbMenu = new javax.swing.JComboBox<>();
+        tMaterias = new javax.swing.JTable();
+        cbEstado = new javax.swing.JComboBox<>();
 
         setClosable(true);
 
@@ -108,15 +94,15 @@ public class ListadoAlumnosXMaterias extends javax.swing.JInternalFrame {
 
         label1.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 29)); // NOI18N
         label1.setForeground(new java.awt.Color(51, 51, 51));
-        label1.setText("Listado de Alumnos por Materia");
+        label1.setText("Listado de Materias");
 
         label2.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
         label2.setForeground(new java.awt.Color(51, 51, 51));
-        label2.setText("MATERIA:");
+        label2.setText("ESTADO:");
 
-        tAlumnos.setBackground(new java.awt.Color(255, 255, 204));
-        tAlumnos.setForeground(new java.awt.Color(51, 51, 51));
-        tAlumnos.setModel(new javax.swing.table.DefaultTableModel(
+        tMaterias.setBackground(new java.awt.Color(255, 255, 204));
+        tMaterias.setForeground(new java.awt.Color(51, 51, 51));
+        tMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -127,53 +113,54 @@ public class ListadoAlumnosXMaterias extends javax.swing.JInternalFrame {
                 "Nombre", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tAlumnos.setToolTipText("");
-        jScrollPane1.setViewportView(tAlumnos);
+        tMaterias.setToolTipText("");
+        jScrollPane1.setViewportView(tMaterias);
 
-        cbMenu.setBackground(new java.awt.Color(255, 255, 204));
-        cbMenu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cbMenu.setForeground(new java.awt.Color(51, 51, 51));
-        cbMenu.addActionListener(new java.awt.event.ActionListener() {
+        cbEstado.setBackground(new java.awt.Color(255, 255, 204));
+        cbEstado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        cbEstado.setForeground(new java.awt.Color(51, 51, 51));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todas", "activas", "inactivas" }));
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMenuActionPerformed(evt);
+                cbEstadoActionPerformed(evt);
             }
         });
 
         jdpEscritorio.setLayer(label1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpEscritorio.setLayer(label2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpEscritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpEscritorio.setLayer(cbMenu, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpEscritorio.setLayer(cbEstado, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpEscritorioLayout = new javax.swing.GroupLayout(jdpEscritorio);
         jdpEscritorio.setLayout(jdpEscritorioLayout);
         jdpEscritorioLayout.setHorizontalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpEscritorioLayout.createSequentialGroup()
-                .addGap(0, 105, Short.MAX_VALUE)
+                .addGap(0, 109, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addGap(106, 106, 106))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpEscritorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jdpEscritorioLayout.createSequentialGroup()
                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(cbMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(221, 221, 221))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(305, 305, 305))
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jdpEscritorioLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(30, 30, 30)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbMenu))
+                    .addComponent(cbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,18 +177,18 @@ public class ListadoAlumnosXMaterias extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMenuActionPerformed
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
         // TODO add your handling code here:
         cargaDatos();
-    }//GEN-LAST:event_cbMenuActionPerformed
+    }//GEN-LAST:event_cbEstadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Materia> cbMenu;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JDesktopPane jdpEscritorio;
     private java.awt.Label label1;
     private java.awt.Label label2;
-    private javax.swing.JTable tAlumnos;
+    private javax.swing.JTable tMaterias;
     // End of variables declaration//GEN-END:variables
 }
