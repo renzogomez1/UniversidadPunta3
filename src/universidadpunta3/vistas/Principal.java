@@ -112,6 +112,11 @@ public class Principal extends javax.swing.JFrame {
         jMCargaDeNotas.setText("Carga De Notas");
 
         jMManejoDeNotas.setText("Manejo De Notas");
+        jMManejoDeNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMManejoDeNotasActionPerformed(evt);
+            }
+        });
         jMCargaDeNotas.add(jMManejoDeNotas);
 
         jMenuBarra.add(jMCargaDeNotas);
@@ -165,6 +170,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMSalirActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jMSalirActionPerformed
 
     private void jMFormularioDeMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioDeMateriasActionPerformed
@@ -212,10 +218,10 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        VistaInscripcion vi = new VistaInscripcion();
-        vi.setVisible(true);
-        escritorio.add(vi);
-        escritorio.moveToFront(vi);
+        VistaInscripcion vista = new VistaInscripcion();
+        vista.setVisible(true);
+        escritorio.add(vista);
+        escritorio.moveToFront(vista);
     }//GEN-LAST:event_jMManejoDeInscripcionesActionPerformed
 
     private void jMListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoMateriasActionPerformed
@@ -227,6 +233,10 @@ public class Principal extends javax.swing.JFrame {
         escritorio.add(lm);
         escritorio.moveToFront(lm);
     }//GEN-LAST:event_jMListadoMateriasActionPerformed
+
+    private void jMManejoDeNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoDeNotasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMManejoDeNotasActionPerformed
 
     /**
      * @param args the command line arguments

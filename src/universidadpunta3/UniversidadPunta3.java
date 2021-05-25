@@ -22,7 +22,7 @@ public class UniversidadPunta3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        /*
            try {
 
             Conexion conexion = new Conexion();
@@ -180,7 +180,7 @@ public class UniversidadPunta3 {
         
         
         
-        
+        */
     }
 
 }
