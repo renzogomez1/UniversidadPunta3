@@ -238,4 +238,25 @@ public class CursadaData {
             JOptionPane.showMessageDialog(null,"Error al borrar una inscripcion: " + ex.getMessage());
         }
     }  
+        /*
+    public void inscribirCursadaDeunAlumnoLogico(int idAlumno,int idMateria){
+    
+        try {
+            
+            String sql = "UPDATE inscripcion SET estado = 1 WHERE id_Alumno =? and id_Materia =?;";
+
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idAlumno);
+            ps.setInt(2, idMateria);
+ 
+            ps.executeUpdate();
+
+            ps.close();
+        //notificamos que se borro
+        JOptionPane.showMessageDialog(null, "La cursada se Inscribio correctamente");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al Inscribir una materia: " + ex.getMessage());
+        }
+    }  
+*/
 }

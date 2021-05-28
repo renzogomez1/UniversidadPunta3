@@ -22,7 +22,7 @@ public class UniversidadPunta3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*
+        
            try {
 
             Conexion conexion = new Conexion();
@@ -31,7 +31,7 @@ public class UniversidadPunta3 {
             AlumnoData ad = new AlumnoData(conexion);
             MateriaData md = new MateriaData(conexion);
  /////////////COMIENZO DE PRUEBA DE ALUMNOS/////////
- 
+ /*
             //Alumno(int id_alumno, String nombre, String apellido, LocalDate fechaNac, int legajo, boolean estado)
         //CREA 8 ALUMNOS
             Alumno a = new Alumno("Javier","Pogliese",LocalDate.of(2000,01,01),1000,false);
@@ -169,18 +169,14 @@ public class UniversidadPunta3 {
             cd.borrarCursadaDeunAlumnoFisico(alumnos.get(2).getId_alumno(), materias.get(0).getId_materia());
             
 ////////////////FIN PRUEBA DE CURSADA/////////////            
-            
+*/      
+        //cd.InscribirCursadaDeunAlumnoLogico(16, 20);    //prueba del nuevo metodo de CursadaData...
+        
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Problema con los drivers de conexion.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Problema con la conexion de la Bases de Datos.");
         }
-    
-        
-        
-        
-        
-        */
     }
 
 }

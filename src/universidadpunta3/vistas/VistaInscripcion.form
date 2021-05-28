@@ -158,6 +158,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tMateriasMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -194,6 +197,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrInscriptasActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jrInscriptasKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jrNoinscriptas">
@@ -205,6 +209,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrNoinscriptasActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jrNoinscriptasKeyReleased"/>
       </Events>
     </Component>
   </SubComponents>

@@ -27,36 +27,38 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
     private ArrayList<Alumno> listaAlumnos;
     private ArrayList<Materia> listaMaterias;
-    private ArrayList<Cursada> listaCursada;
+    private ArrayList<Cursada> listaCursada, listaNoCursada;
     private CursadaData cd;
     private AlumnoData ad;
     private MateriaData md;
     private Conexion conexion;
+    private int registro;
+    private int idMateria;
     
     /**
      * Creates new form VistaInscripcion
      */
     public VistaInscripcion() {
+        initComponents();
         try {
-            initComponents();
             conexion = new Conexion("jdbc:mysql://localhost/universidadgrupo3", "root", "");
-            modelo = new DefaultTableModel();
+            modelo = new DefaultTableModel(){public boolean isCellEditable(int row,int col){
+            return(col!=0&&col!=1&&col!=2);
+            }};
             cd = new CursadaData(conexion);
             listaCursada = (ArrayList)cd.obtenerCursadas();
             ad = new AlumnoData(conexion);
             listaAlumnos = (ArrayList)ad.obtenerAlumnos();
             md = new MateriaData(conexion);
-            listaMaterias = (ArrayList)md.obtenerMaterias();
-            cargarItem();
-            bgOpciones.clearSelection();
-            armarTabla();
             borrarFilas();
-            //activarBotonInscripcion();
-            //activarBotonEliminar();
+            armarTabla();
+            cargarAlumnos();
+            inscribir.setEnabled(false);
+            anularInscripcion.setEnabled(false);
+            bgOpciones.clearSelection();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaInscripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     /**
@@ -106,6 +108,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tMaterias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tMateriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tMaterias);
 
         anularInscripcion.setText("Anular Inscripcion");
@@ -136,12 +143,22 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                 jrInscriptasActionPerformed(evt);
             }
         });
+        jrInscriptas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jrInscriptasKeyReleased(evt);
+            }
+        });
 
         bgOpciones.add(jrNoinscriptas);
         jrNoinscriptas.setText("No Inscriptas");
         jrNoinscriptas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrNoinscriptasActionPerformed(evt);
+            }
+        });
+        jrNoinscriptas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jrNoinscriptasKeyReleased(evt);
             }
         });
 
@@ -216,20 +233,16 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
 
     private void jCAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCAlumnosActionPerformed
         // TODO add your handling code here:
+        cargarAlumnos();
     }//GEN-LAST:event_jCAlumnosActionPerformed
 
     private void inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inscribirActionPerformed
         // TODO add your handling code here:
-//        activarBotonInscripcion();
-        Alumno a1 = (Alumno)jCAlumnos.getSelectedItem();
-        DefaultTableModel dtm = (DefaultTableModel)tMaterias.getModel();
-        int fila = tMaterias.getSelectedRow();
-        int idMateria = parseInt(tMaterias.getValueAt(fila, 0).toString());
-        Materia mat = md.buscarMateria(idMateria);
-        Cursada cur = new Cursada(a1, mat, 0, true);
-        cd.guardarCursada(cur);
-        //JOptionPane.showMessageDialog(this, "La materia quedo inscripta correctamente");
-        dtm.removeRow(fila);
+        Alumno alum1 = (Alumno)jCAlumnos.getSelectedItem();
+        Materia mat1 = md.buscarMateria(idMateria);
+        Cursada cur1 = new Cursada(alum1, mat1, 0, true);
+        cd.guardarCursada(cur1);
+        cargarMateriasNoInscriptas();
     }//GEN-LAST:event_inscribirActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
@@ -239,48 +252,46 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
 
     private void jrNoinscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNoinscriptasActionPerformed
         // TODO add your handling code here:
-        cargarNoInscriptas();
+        cargarMateriasNoInscriptas();
+        inscribir.setEnabled(true);
+        anularInscripcion.setEnabled(false);
     }//GEN-LAST:event_jrNoinscriptasActionPerformed
 
     private void jrInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrInscriptasActionPerformed
         // TODO add your handling code here:
-        cargarInscriptas();
+        cargarMateriasInscriptas();
+        anularInscripcion.setEnabled(true);
+        inscribir.setEnabled(false);
     }//GEN-LAST:event_jrInscriptasActionPerformed
 
     private void anularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anularInscripcionActionPerformed
         // TODO add your handling code here:
-    //    activarBotonEliminar();
-        Alumno a1 = (Alumno)jCAlumnos.getSelectedItem();
-        DefaultTableModel dtm = (DefaultTableModel)tMaterias.getModel();
-        int fila = tMaterias.getSelectedRow();
-        int idMateria = parseInt(tMaterias.getValueAt(fila, 0).toString());
-        int idAlumno = a1.getId_alumno();
-        cd.borrarCursadaDeunAlumnoFisico(idAlumno, idMateria);
-        //JOptionPane.showMessageDialog(this, "La inscripcion fue anulada con exito.");
-        dtm.removeRow(fila);
+        Alumno alum1 = (Alumno)jCAlumnos.getSelectedItem();
+        cd.borrarCursadaDeunAlumnoFisico(alum1.getId_alumno(), idMateria);
+        cargarMateriasInscriptas();
     }//GEN-LAST:event_anularInscripcionActionPerformed
+
+    private void tMateriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMateriasMouseClicked
+        // TODO add your handling code here:
+        registro = tMaterias.getSelectedRow();
+        idMateria = parseInt(tMaterias.getValueAt(registro, 0).toString());
+    }//GEN-LAST:event_tMateriasMouseClicked
+
+    private void jrInscriptasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jrInscriptasKeyReleased
+        // TODO add your handling code here:
+        //habilitarBotonNoinscribir();
+    }//GEN-LAST:event_jrInscriptasKeyReleased
+
+    private void jrNoinscriptasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jrNoinscriptasKeyReleased
+        // TODO add your handling code here:
+        //habilitarBotonInscripcion();
+    }//GEN-LAST:event_jrNoinscriptasKeyReleased
     
-    public void cargarItem(){
-        for(Alumno ol : listaAlumnos){
-            jCAlumnos.addItem(ol);
+    public void cargarAlumnos(){
+        for (Alumno a: listaAlumnos){
+            jCAlumnos.addItem(a);
         }
     }
-    
-//    public void activarBotonInscripcion(){
-//        if (jrNoinscriptas.isSelected()){
-//            inscribir.setEnabled(true);
-//        } else {
-//            inscribir.setEnabled(false);
-//        }
-//    }
-//    
-//    public void activarBotonEliminar(){
-//        if (jrInscriptas.isSelected()){
-//            anularInscripcion.setEnabled(true);
-//        } else {
-//            anularInscripcion.setSelected(false);
-//        }
-//    }
     
     public void armarTabla(){
         ArrayList<Object> cabecera = new ArrayList<Object>();
@@ -301,29 +312,43 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         }
     }
     
-    public void cargarInscriptas(){
+    public void cargarMateriasInscriptas(){
         borrarFilas();
-        Alumno alum = (Alumno)jCAlumnos.getSelectedItem();
-        for (Cursada ol : listaCursada){
-            if(ol.getAlumno().getId_alumno() == alum.getId_alumno()){
-                if (ol.isEstado() == true && jrInscriptas.isSelected()){
-                modelo.addRow( new Object[]{ol.getMateria().getId_materia(), ol.getMateria().getMateriaMateria(), ol.getMateria().getAnio()});
-                }
-            }
+        Alumno a2 = (Alumno)jCAlumnos.getSelectedItem();
+        ArrayList<Materia> inscriptas = (ArrayList)cd.obtenerMateriasCursadasXAlumno(a2.getId_alumno());
+        for (Materia ma1 : inscriptas){
+           // if(ma.isEstado() == true){
+            modelo.addRow(new Object[]{ma1.getId_materia(), ma1.getMateriaMateria(), ma1.getAnio()});
+           // }
         }
     }
     
-    public void cargarNoInscriptas(){
+    public void cargarMateriasNoInscriptas(){
         borrarFilas();
-        Alumno alum = (Alumno)jCAlumnos.getSelectedItem();
-        for (Cursada ol : listaCursada){
-            if(ol.getAlumno().getId_alumno() == alum.getId_alumno()){
-                if (ol.isEstado() == false && jrNoinscriptas.isSelected()){
-                modelo.addRow( new Object[]{ol.getMateria().getId_materia(), ol.getMateria().getMateriaMateria(), ol.getMateria().getAnio()});
-                } 
-            }
+        Alumno a1 = (Alumno)jCAlumnos.getSelectedItem();
+        ArrayList<Materia> noInscriptas = (ArrayList)cd.obtenerMateriasNOCursadas(a1.getId_alumno());
+        for (Materia ma : noInscriptas){
+           // if(ma.isEstado() == false){
+            modelo.addRow(new Object[]{ma.getId_materia(), ma.getMateriaMateria(), ma.getAnio()});
+           // }
         }
     }
+    /*
+    public void habilitarBotonInscripcion(){
+        if(jrInscriptas.isSelected() == true){
+            inscribir.setEnabled(true);
+        } else {
+            inscribir.setEnabled(false);
+        }
+    }
+    
+    public void habilitarBotonNoinscribir(){
+        if(jrNoinscriptas.isSelected() == true){
+            anularInscripcion.setEnabled(true);
+        } else {
+            anularInscripcion.setEnabled(false);
+        }
+    } */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton anularInscripcion;
