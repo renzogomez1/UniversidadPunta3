@@ -90,17 +90,13 @@ public class ListadoMaterias extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        jdpEscritorio.setBackground(new java.awt.Color(255, 204, 153));
-
-        label1.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 29)); // NOI18N
+        label1.setFont(new java.awt.Font("Dialog", 0, 29)); // NOI18N
         label1.setForeground(new java.awt.Color(51, 51, 51));
         label1.setText("Listado de Materias");
 
-        label2.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
         label2.setForeground(new java.awt.Color(51, 51, 51));
         label2.setText("ESTADO:");
 
-        tMaterias.setBackground(new java.awt.Color(255, 255, 204));
         tMaterias.setForeground(new java.awt.Color(51, 51, 51));
         tMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,7 +112,6 @@ public class ListadoMaterias extends javax.swing.JInternalFrame {
         tMaterias.setToolTipText("");
         jScrollPane1.setViewportView(tMaterias);
 
-        cbEstado.setBackground(new java.awt.Color(255, 255, 204));
         cbEstado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         cbEstado.setForeground(new java.awt.Color(51, 51, 51));
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todas", "activas", "inactivas" }));
@@ -160,7 +155,7 @@ public class ListadoMaterias extends javax.swing.JInternalFrame {
                     .addComponent(cbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
