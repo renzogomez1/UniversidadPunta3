@@ -84,8 +84,14 @@ public class CursadaData {
     
     public List<Cursada> obtenerCursadasXAlumno(int id){
         List<Cursada> cursadas = new ArrayList<>();
-            
-
+        /*ArrayList<Cursada>aux=(ArrayList<Cursada>) this.obtenerCursadas();
+        Alumno a=null;
+        for(Cursada c:aux){
+            if(c.getAlumno().getId_alumno()==id){
+            a=this.buscarAlumno(id);
+            }
+        }    
+        if(a!=null){*/
         try {
             String sql = "SELECT * FROM inscripcion WHERE id_Alumno = ?;";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -106,7 +112,7 @@ public class CursadaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al obtener las cursadas por alumnos: " + ex.getMessage());
-        }       
+        }//}else{JOptionPane.showMessageDialog(null, "El alumno no esta cursando ninguna materia");}       
         return cursadas;
     }
 
@@ -179,7 +185,14 @@ public class CursadaData {
     }
     
     public void borrarCursadaDeunAlumnoFisico(int idAlumno,int idMateria){
-    
+    ArrayList<Cursada>aux=(ArrayList<Cursada>) this.obtenerCursadas();
+    Alumno a = null;
+    for(Cursada c:aux){
+        if(c.getAlumno().getId_alumno()==idAlumno&&c.getMateria().getId_materia()==idMateria){
+            a=this.buscarAlumno(idAlumno);
+           }
+        }
+        if(a!=null){
         try {
             
             String sql = "DELETE FROM inscripcion WHERE id_Alumno =? and id_Materia =?;";
@@ -196,11 +209,22 @@ public class CursadaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al borrar una inscripción: " + ex.getMessage());
         }
-    }
+    }else if(a==null){JOptionPane.showMessageDialog(null, "El alumno no se encuentra inscripto en la materia elegida");}}
     
     public void actualizarNota(int idAlumno,int idMateria, float nota){
+    ArrayList<Cursada>aux=(ArrayList<Cursada>) this.obtenerCursadas();
+    Alumno a = null;
     
-        try {
+    
+    for(Cursada c:aux){
+        if(c.getAlumno().getId_alumno()==idAlumno&&c.getMateria().getId_materia()==idMateria){
+            a=this.buscarAlumno(idAlumno);
+           
+    }}
+    
+    
+            if(a!=null&&nota<=10&&nota>=0){
+            try {
             
             String sql = "UPDATE inscripcion SET calificacion = ? WHERE id_Alumno =? and id_Materia =?;";
 
@@ -216,11 +240,27 @@ public class CursadaData {
         JOptionPane.showMessageDialog(null, "La nota se actualizo correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al actualizar la nota: " + ex.getMessage());
-        }
+        }}
+    else if(a==null){JOptionPane.showMessageDialog(null, "El alumno elegido no se encuentra cursando la materia elegida");}
+    else if(nota>10||nota<0){JOptionPane.showMessageDialog(null,"La nota no es valida");}
+    
     }
 
-    public void borrarCursadaDeunAlumnoLogico(int idAlumno,int idMateria){
     
+    public void borrarCursadaDeunAlumnoLogico(int idAlumno,int idMateria){
+     ArrayList<Cursada>aux=(ArrayList<Cursada>) this.obtenerCursadas();
+    Alumno a = null;
+    
+    boolean auxEstado=false;
+    
+    for(Cursada c:aux){
+        if(c.getAlumno().getId_alumno()==idAlumno&&c.getMateria().getId_materia()==idMateria){
+            a=this.buscarAlumno(idAlumno);
+           if(c.isEstado()==true){auxEstado=true;}
+        }
+        }
+        
+        if(a!=null&&auxEstado==true){
         try {
             
             String sql = "UPDATE inscripcion SET estado = 0 WHERE id_Alumno =? and id_Materia =?;";
@@ -237,6 +277,10 @@ public class CursadaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al borrar una inscripcion: " + ex.getMessage());
         }
+    }else if(a==null){JOptionPane.showMessageDialog(null, "El alumno no se encuentra inscripto en la materia elegida");}
+    else if(auxEstado==false){JOptionPane.showMessageDialog(null,"La cursada que desea borrar ya se encuentra dada de baja");}
+    
+    
     }  
         /*
     public void inscribirCursadaDeunAlumnoLogico(int idAlumno,int idMateria){

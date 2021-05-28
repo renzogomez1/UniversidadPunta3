@@ -106,10 +106,12 @@ public class MateriaData {
         
         return materia;
     }
-    public void borrarMateriaFisica(int id){
     
+    public void borrarMateriaFisica(int id){
+    Materia materia = this.buscarMateria(id);
+        if(materia!=null){
         
-    try {
+        try {
             
             String sql = "DELETE FROM materia WHERE id_Materia=?;";
 
@@ -123,7 +125,7 @@ public class MateriaData {
          JOptionPane.showMessageDialog(null,"La materia se borro correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al borrar la materia: " + ex.getMessage());
-        }
+        }}else{JOptionPane.showMessageDialog(null,"La Materia que desea borrar no se encuentra en la base de datos");}
     }
     public void actualizarMateria(Materia materia){
     try {
@@ -146,7 +148,9 @@ public class MateriaData {
   
     }
     public void borrarMateriaLogica(int id){
-    try {
+        Materia materia = this.buscarMateria(id);
+        if(materia!=null&&materia.isEstado()==true){
+        try {
             
             String sql = "UPDATE materia SET estado =0 WHERE id_Materia= ?;";
 
@@ -159,8 +163,8 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null,"La materia: "+buscarMateria(id).getMateriaMateria()+" Se borro correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al borrar la materia: " +buscarMateria(id).getMateriaMateria()+" "+ ex.getMessage());
-        }
-  
+        }}else if(materia==null){JOptionPane.showMessageDialog(null, "La materia que desea borrar no se encuentra en la base de datos");}
+        else if(materia.isEstado()==false){JOptionPane.showMessageDialog(null,"La materia que desea borrar ya se encuentra dada de baja");}   
     }
     public List<Materia> obtenerMateriasPorEstado(int estado){
         List<Materia> materias = new ArrayList<Materia>();   

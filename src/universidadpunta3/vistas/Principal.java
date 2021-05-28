@@ -238,6 +238,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMManejoDeNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoDeNotasActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaNotas vn = new VistaNotas();
+        vn.setVisible(true);
+        escritorio.add(vn);
+        escritorio.moveToFront(vn);
     }//GEN-LAST:event_jMManejoDeNotasActionPerformed
 
     /**

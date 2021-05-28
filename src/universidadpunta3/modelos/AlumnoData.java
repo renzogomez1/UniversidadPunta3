@@ -81,8 +81,12 @@ public class AlumnoData {
     }
     
     public void borrarAlumnoFisico(int id){
-        
-        try{ 
+       
+        Alumno alum = this.buscarAlumno(id);
+       
+        if(alum!=null){
+       
+           try{ 
           String sql= "DELETE FROM alumno WHERE id_Alumno=?"; 
           PreparedStatement ps= con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
           ps.setInt(1,id);
@@ -95,12 +99,16 @@ public class AlumnoData {
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "error al borrar el alumno "+ex.getMessage());
         
-        }
+        }}else{JOptionPane.showMessageDialog(null,"El alumno que desea borrar no se encuentra en la base de datos");}
      
     
     }
+    
     public void borrarAlumnoLogico(int id){
-        
+    
+        Alumno alum = this.buscarAlumno(id);
+       
+        if(alum!=null&&alum.isEstado()==true){
         try{ 
                       
           String sql= "UPDATE alumno SET estado=0 WHERE id_Alumno=?"; 
@@ -113,8 +121,8 @@ public class AlumnoData {
         JOptionPane.showMessageDialog(null,"El alumno: "+buscarAlumno(id).getApellido()+" se borro corectamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al borrar el alumno: "+buscarAlumno(id).getApellido()+" "+ex.getMessage());
-        }
-     
+        }}else if(alum==null){JOptionPane.showMessageDialog(null,"El alumno que desea borrar no se encuentra en la base de datos");}
+        else if(alum.isEstado()==false){JOptionPane.showMessageDialog(null, "El alumno que desea borrar ya se encuentra dado de baja");}  
     
     }
         
