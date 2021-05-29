@@ -8,6 +8,7 @@ package universidadpunta3.vistas;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadpunta3.modelos.*;
 
@@ -34,7 +35,7 @@ public class ListadoMaterias extends javax.swing.JInternalFrame {
             armarCabeceraTabla();
             cargaDatos();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ListadoMaterias.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Problema de conexion con la base de datos");
         }
     }
  
@@ -89,6 +90,9 @@ public class ListadoMaterias extends javax.swing.JInternalFrame {
         cbEstado = new javax.swing.JComboBox<>();
 
         setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         label1.setFont(new java.awt.Font("Dialog", 0, 29)); // NOI18N
         label1.setForeground(new java.awt.Color(51, 51, 51));

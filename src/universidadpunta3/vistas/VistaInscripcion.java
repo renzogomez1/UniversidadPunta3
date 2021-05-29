@@ -57,7 +57,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             anularInscripcion.setEnabled(false);
             bgOpciones.clearSelection();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VistaInscripcion.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(this, "Problema de conexion con la base de datos");
         }
     }
 
@@ -82,6 +82,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         inscribir = new javax.swing.JToggleButton();
         jrInscriptas = new javax.swing.JRadioButton();
         jrNoinscriptas = new javax.swing.JRadioButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("FORMULARIO DE INSCRIPCION");

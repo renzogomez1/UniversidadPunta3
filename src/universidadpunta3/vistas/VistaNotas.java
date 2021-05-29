@@ -51,7 +51,7 @@ public class VistaNotas extends javax.swing.JInternalFrame {
            armarCabeceraTabla();
            cargaDatos();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ListadoAlumnosXMaterias.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(this, "Problema de conexion con la base de datos");
         }
     }
 

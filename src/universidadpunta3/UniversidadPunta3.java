@@ -171,21 +171,6 @@ public class UniversidadPunta3 {
             
 ////////////////FIN PRUEBA DE CURSADA/////////////            
 */      
-        //cd.InscribirCursadaDeunAlumnoLogico(16, 20);    //prueba del nuevo metodo de CursadaData...
-        
-            
-         //cd.actualizarNota(19, 20, 10);
-        //cd.borrarCursadaDeunAlumnoLogico(16,20);
-        //cd.borrarCursadaDeunAlumnoFisico(44,8);
-               //System.out.println(cd.obtenerCursadasXAlumno(19));
-               //Alumno a = ad.buscarAlumno(44);
-               //Materia m = cd.buscarMateria(20);
-               //Cursada c = new Cursada(a,m,10,true);
-               //cd.guardarCursada(c);
-               //a.setNombre("asd");
-               //ad.actualizarAlumno(a);
-               //md.borrarMateriaLogica(22);
-               //ad.borrarAlumnoLogico(39);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Problema con los drivers de conexion.");
         } catch (SQLException ex) {

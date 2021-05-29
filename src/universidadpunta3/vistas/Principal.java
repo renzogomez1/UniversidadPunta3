@@ -5,6 +5,7 @@
  */
 package universidadpunta3.vistas;
 
+import java.awt.Dimension;
 import universidadpunta3.modelos.Conexion;
 import universidadpunta3.modelos.Materia;
 import universidadpunta3.modelos.MateriaData;
@@ -20,6 +21,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+       
     }
 
     /**
@@ -183,6 +185,10 @@ public class Principal extends javax.swing.JFrame {
         am.setVisible(true);
         escritorio.add(am);
         escritorio.moveToFront(am);
+         Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = am.getSize();
+        am.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        am.show();
     }//GEN-LAST:event_jMFormularioDeMateriasActionPerformed
 
     private void jMListadoDeAlumnosPorMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoDeAlumnosPorMateriaActionPerformed
@@ -193,6 +199,10 @@ public class Principal extends javax.swing.JFrame {
         am.setVisible(true);
         escritorio.add(am);
         escritorio.moveToFront(am);
+         Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = am.getSize();
+        am.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        am.show();
     }//GEN-LAST:event_jMListadoDeAlumnosPorMateriaActionPerformed
 
     private void jMFormularioDeAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioDeAlumnosActionPerformed
@@ -203,6 +213,10 @@ public class Principal extends javax.swing.JFrame {
         alumnos.setVisible(true);
         escritorio.add(alumnos);
         escritorio.moveToFront(alumnos);
+        Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = alumnos.getSize();
+        alumnos.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        alumnos.show();
                                     
     }//GEN-LAST:event_jMFormularioDeAlumnosActionPerformed
 
@@ -214,6 +228,10 @@ public class Principal extends javax.swing.JFrame {
         la.setVisible(true);
         escritorio.add(la);
         escritorio.moveToFront(la);
+         Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = la.getSize();
+        la.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        la.show();
     }//GEN-LAST:event_jMListadoAlumnosActionPerformed
 
     private void jMManejoDeInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoDeInscripcionesActionPerformed
@@ -224,6 +242,10 @@ public class Principal extends javax.swing.JFrame {
         vista.setVisible(true);
         escritorio.add(vista);
         escritorio.moveToFront(vista);
+         Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = vista.getSize();
+        vista.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        vista.show();
     }//GEN-LAST:event_jMManejoDeInscripcionesActionPerformed
 
     private void jMListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListadoMateriasActionPerformed
@@ -234,6 +256,10 @@ public class Principal extends javax.swing.JFrame {
         lm.setVisible(true);
         escritorio.add(lm);
         escritorio.moveToFront(lm);
+         Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = lm.getSize();
+        lm.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        lm.show();
     }//GEN-LAST:event_jMListadoMateriasActionPerformed
 
     private void jMManejoDeNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoDeNotasActionPerformed
@@ -244,6 +270,10 @@ public class Principal extends javax.swing.JFrame {
         vn.setVisible(true);
         escritorio.add(vn);
         escritorio.moveToFront(vn);
+         Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = vn.getSize();
+        vn.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        vn.show();
     }//GEN-LAST:event_jMManejoDeNotasActionPerformed
 
     /**
