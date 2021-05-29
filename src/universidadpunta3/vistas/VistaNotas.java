@@ -76,6 +76,11 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jTNota = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setText("CARGA DE NOTAS");
 
         jCAlumno.addActionListener(new java.awt.event.ActionListener() {
