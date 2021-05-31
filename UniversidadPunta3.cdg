@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="UniversidadPunta3">
+  <ClassDiagramComponents>
+    <Class name="Alumno" package="universidadpunta3.modelos" visibility="public" xPosition="89.0" yPosition="666.0">
+      <Fields>
+        <Field name="id_alumno" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="fechaNac" type="LocalDate" visibility="private"/>
+        <Field name="legajo" type="int" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id_alumno"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="LocalDate" name="fechaNac"/>
+          <Argument type="int" name="legajo"/>
+          <Argument type="boolean" name="estado"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="LocalDate" name="fechaNac"/>
+          <Argument type="int" name="legajo"/>
+          <Argument type="boolean" name="estado"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="getId_alumno" returnType="int" visibility="public"/>
+        <Method name="setId_alumno" returnType="void" visibility="public">
+          <Argument type="int" name="id_alumno"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getApellido" returnType="String" visibility="public"/>
+        <Method name="setApellido" returnType="void" visibility="public">
+          <Argument type="String" name="apellido"/>
+        </Method>
+        <Method name="getFechaNac" returnType="LocalDate" visibility="public"/>
+        <Method name="setFechaNac" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fechaNac"/>
+        </Method>
+        <Method name="getLegajo" returnType="int" visibility="public"/>
+        <Method name="setLegajo" returnType="void" visibility="public">
+          <Argument type="int" name="legajo"/>
+        </Method>
+        <Method name="isEstado" returnType="boolean" visibility="public"/>
+        <Method name="setEstado" returnType="void" visibility="public">
+          <Argument type="boolean" name="estado"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AlumnoData" package="universidadpunta3.modelos" visibility="public" xPosition="89.0" yPosition="1413.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Conexion" name="conexion"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="guardarAlumno" returnType="void" visibility="public">
+          <Argument type="Alumno" name="alumno"/>
+        </Method>
+        <Method name="actualizarAlumno" returnType="void" visibility="public">
+          <Argument type="Alumno" name="alumno"/>
+        </Method>
+        <Method name="borrarAlumnoFisico" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="borrarAlumnoLogico" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="buscarAlumno" returnType="Alumno" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="obtenerAlumnos" returnType="List&lt;Alumno&gt;" visibility="public"/>
+        <Method name="obtenerAlumnosPorEstado" returnType="List&lt;Alumno&gt;" visibility="public">
+          <Argument type="int" name="estado"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Conexion" package="universidadpunta3.modelos" visibility="public" xPosition="1559.0" yPosition="1085.0">
+      <Fields>
+        <Field name="url" type="String" visibility="private"/>
+        <Field name="usuario" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="conexion" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="url"/>
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getConexion" returnType="Connection" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Cursada" package="universidadpunta3.modelos" visibility="public" xPosition="200.0" yPosition="127.0">
+      <Fields>
+        <Field name="id_cursada" type="int" visibility="private"/>
+        <Field name="alumno" type="Alumno" visibility="private"/>
+        <Field name="materia" type="Materia" visibility="private"/>
+        <Field name="nota" type="float" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id_cursada"/>
+          <Argument type="Alumno" name="alumno"/>
+          <Argument type="Materia" name="materia"/>
+          <Argument type="float" name="nota"/>
+          <Argument type="boolean" name="estado"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Alumno" name="alumno"/>
+          <Argument type="Materia" name="materia"/>
+          <Argument type="float" name="nota"/>
+          <Argument type="boolean" name="estado"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId_cursada" returnType="int" visibility="public"/>
+        <Method name="getAlumno" returnType="Alumno" visibility="public"/>
+        <Method name="getMateria" returnType="Materia" visibility="public"/>
+        <Method name="getNota" returnType="float" visibility="public"/>
+        <Method name="setId_cursada" returnType="void" visibility="public">
+          <Argument type="int" name="id_cursada"/>
+        </Method>
+        <Method name="setAlumno" returnType="void" visibility="public">
+          <Argument type="Alumno" name="alumno"/>
+        </Method>
+        <Method name="setMateria" returnType="void" visibility="public">
+          <Argument type="Materia" name="materia"/>
+        </Method>
+        <Method name="setNota" returnType="void" visibility="public">
+          <Argument type="float" name="nota"/>
+        </Method>
+        <Method name="isEstado" returnType="boolean" visibility="public"/>
+        <Method name="setEstado" returnType="void" visibility="public">
+          <Argument type="boolean" name="estado"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CursadaData" package="universidadpunta3.modelos" visibility="public" xPosition="1079.0" yPosition="571.0">
+      <Fields>
+        <Field name="connection" type="Connection" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Conexion" name="conexion"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="guardarCursada" returnType="void" visibility="public">
+          <Argument type="Cursada" name="cursada"/>
+        </Method>
+        <Method name="obtenerCursadas" returnType="List&lt;Cursada&gt;" visibility="public"/>
+        <Method name="obtenerCursadasXAlumno" returnType="List&lt;Cursada&gt;" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="buscarAlumno" returnType="Alumno" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="buscarMateria" returnType="Materia" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="obtenerMateriasCursadasXAlumno" returnType="List&lt;Materia&gt;" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="obtenerMateriasNOCursadas" returnType="List&lt;Materia&gt;" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="borrarCursadaDeunAlumnoFisico" returnType="void" visibility="public">
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="int" name="idMateria"/>
+        </Method>
+        <Method name="actualizarNota" returnType="void" visibility="public">
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="int" name="idMateria"/>
+          <Argument type="float" name="nota"/>
+        </Method>
+        <Method name="borrarCursadaDeunAlumnoLogico" returnType="void" visibility="public">
+          <Argument type="int" name="idAlumno"/>
+          <Argument type="int" name="idMateria"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Materia" package="universidadpunta3.modelos" visibility="public" xPosition="1178.0" yPosition="84.0">
+      <Fields>
+        <Field name="id_materia" type="int" visibility="private"/>
+        <Field name="materiaMateria" type="String" visibility="private"/>
+        <Field name="anio" type="int" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id_materia"/>
+          <Argument type="String" name="materiaMateria"/>
+          <Argument type="int" name="anio"/>
+          <Argument type="boolean" name="estado"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="materiaMateria"/>
+          <Argument type="int" name="anio"/>
+          <Argument type="boolean" name="estado"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="getId_materia" returnType="int" visibility="public"/>
+        <Method name="setId_materia" returnType="void" visibility="public">
+          <Argument type="int" name="id_materia"/>
+        </Method>
+        <Method name="getMateriaMateria" returnType="String" visibility="public"/>
+        <Method name="setMateriaMateria" returnType="void" visibility="public">
+          <Argument type="String" name="materiaMateria"/>
+        </Method>
+        <Method name="getAnio" returnType="int" visibility="public"/>
+        <Method name="setAnio" returnType="void" visibility="public">
+          <Argument type="int" name="anio"/>
+        </Method>
+        <Method name="isEstado" returnType="boolean" visibility="public"/>
+        <Method name="setEstado" returnType="void" visibility="public">
+          <Argument type="boolean" name="estado"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MateriaData" package="universidadpunta3.modelos" visibility="public" xPosition="2008.0" yPosition="116.0">
+      <Fields>
+        <Field name="connection" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Conexion" name="conexion"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="guardarMateria" returnType="void" visibility="public">
+          <Argument type="Materia" name="materia"/>
+        </Method>
+        <Method name="obtenerMaterias" returnType="List&lt;Materia&gt;" visibility="public"/>
+        <Method name="buscarMateria" returnType="Materia" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="borrarMateriaFisica" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="actualizarMateria" returnType="void" visibility="public">
+          <Argument type="Materia" name="materia"/>
+        </Method>
+        <Method name="borrarMateriaLogica" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="obtenerMateriasPorEstado" returnType="List&lt;Materia&gt;" visibility="public">
+          <Argument type="int" name="estado"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UniversidadPunta3" package="universidadpunta3" visibility="public" xPosition="830.0" yPosition="330.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ListadoAlumnos" package="universidadpunta3.vistas" visibility="public" xPosition="945.0" yPosition="1531.0">
+      <Fields>
+        <Field name="modelo" type="DefaultTableModel" visibility="private"/>
+        <Field name="ad" type="AlumnoData" visibility="private"/>
+        <Field name="listaAlumnos" type="ArrayList&lt;Alumno&gt;" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="armarCabeceraTabla" returnType="void" visibility="public"/>
+        <Method name="borrarFilasTabla" returnType="void" visibility="public"/>
+        <Method name="cargaDatos" returnType="void" visibility="public"/>
+        <Method name="cbEstadoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ListadoAlumnosXMaterias" package="universidadpunta3.vistas" visibility="public" xPosition="1640.0" yPosition="432.0">
+      <Fields>
+        <Field name="modelo" type="DefaultTableModel" visibility="private"/>
+        <Field name="listaCursada" type="ArrayList&lt;Cursada&gt;" visibility="private"/>
+        <Field name="listaMaterias" type="ArrayList&lt;Materia&gt;" visibility="private"/>
+        <Field name="cd" type="CursadaData" visibility="private"/>
+        <Field name="md" type="MateriaData" visibility="private"/>
+        <Field name="ad" type="AlumnoData" visibility="private"/>
+        <Field name="listaAlumnos" type="ArrayList&lt;Alumno&gt;" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="cargarMaterias" returnType="void" visibility="public"/>
+        <Method name="armarCabeceraTabla" returnType="void" visibility="public"/>
+        <Method name="borrarFilasTabla" returnType="void" visibility="public"/>
+        <Method name="cargaDatos" returnType="void" visibility="public"/>
+        <Method name="cbMenuActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="cbMenu1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ListadoMaterias" package="universidadpunta3.vistas" visibility="public" xPosition="2464.0" yPosition="865.0">
+      <Fields>
+        <Field name="modelo" type="DefaultTableModel" visibility="private"/>
+        <Field name="md" type="MateriaData" visibility="private"/>
+        <Field name="listaMaterias" type="ArrayList&lt;Materia&gt;" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="armarCabeceraTabla" returnType="void" visibility="public"/>
+        <Method name="borrarFilasTabla" returnType="void" visibility="public"/>
+        <Method name="cargaDatos" returnType="void" visibility="public"/>
+        <Method name="cbEstadoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Principal" package="universidadpunta3.vistas" visibility="public" xPosition="2693.0" yPosition="330.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="jMSalirActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMFormularioDeMateriasActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMListadoDeAlumnosPorMateriaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMFormularioDeAlumnosActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMListadoAlumnosActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMManejoDeInscripcionesActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMListadoMateriasActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jMManejoDeNotasActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VistaAlumnos" package="universidadpunta3.vistas" visibility="public" xPosition="2464.0" yPosition="1413.0">
+      <Fields>
+        <Field name="alumnoData" type="AlumnoData" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="habilitarBotonGuardar" returnType="void" visibility="private"/>
+        <Method name="habilitarBotonBuscar" returnType="void" visibility="private"/>
+        <Method name="habilitarBotonBorrar" returnType="void" visibility="public"/>
+        <Method name="habilitarBotonActualizar" returnType="void" visibility="private"/>
+        <Method name="jBGuardarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBBorrarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBActualizarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBLimpiarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBBuscarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTIDKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTNombreKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTApellidoKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTLegajoKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTIDActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTLegajoKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTNombreKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTApellidoKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jDFechaNacKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTIDKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VistaInscripcion" package="universidadpunta3.vistas" visibility="public" xPosition="2916.0" yPosition="820.0">
+      <Fields>
+        <Field name="modelo" type="DefaultTableModel" visibility="private"/>
+        <Field name="listaAlumnos" type="ArrayList&lt;Alumno&gt;" visibility="private"/>
+        <Field name="listaMaterias" type="ArrayList&lt;Materia&gt;" visibility="private"/>
+        <Field name="listaCursada" type="ArrayList&lt;Cursada&gt;" visibility="private"/>
+        <Field name="cd" type="CursadaData" visibility="private"/>
+        <Field name="ad" type="AlumnoData" visibility="private"/>
+        <Field name="md" type="MateriaData" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+        <Field name="registro" type="int" visibility="private"/>
+        <Field name="idMateria" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="jCAlumnosActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="inscribirActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="salirActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jrNoinscriptasActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jrInscriptasActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="anularInscripcionActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="tMateriasMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="jrInscriptasKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jrNoinscriptasKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="cargarAlumnos" returnType="void" visibility="public"/>
+        <Method name="armarTabla" returnType="void" visibility="public"/>
+        <Method name="borrarFilas" returnType="void" visibility="public"/>
+        <Method name="cargarMateriasInscriptas" returnType="void" visibility="public"/>
+        <Method name="cargarMateriasNoInscriptas" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="VistaMaterias" package="universidadpunta3.vistas" visibility="public" xPosition="2140.0" yPosition="492.0">
+      <Fields>
+        <Field name="materiaData" type="MateriaData" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="jBGuardarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBBorrarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBActualizarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBLimpiarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBBuscarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTIDKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTNombreKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTAnioKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VistaNotas" package="universidadpunta3.vistas" visibility="public" xPosition="885.0" yPosition="1001.0">
+      <Fields>
+        <Field name="modelo" type="DefaultTableModel" visibility="private"/>
+        <Field name="cursadaData" type="CursadaData" visibility="private"/>
+        <Field name="alumnoData" type="AlumnoData" visibility="private"/>
+        <Field name="listaAlumnos" type="ArrayList&lt;Alumno&gt;" visibility="private"/>
+        <Field name="conexion" type="Conexion" visibility="private"/>
+        <Field name="mate" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="jCAlumnoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTCursadaMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="jBGuardarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTNotaKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jTNotaKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jBCancelarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBCancelarKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="cargarAlumnos" returnType="void" visibility="public"/>
+        <Method name="borrarFilasTabla" returnType="void" visibility="public"/>
+        <Method name="armarCabeceraTabla" returnType="void" visibility="public"/>
+        <Method name="cargaDatos" returnType="void" visibility="public"/>
+        <Method name="habilitarBotonGuardar" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="ad" source="universidadpunta3.vistas.VistaInscripcion" target="universidadpunta3.modelos.AlumnoData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.ListadoMaterias" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.ListadoAlumnos" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="universidadpunta3.modelos.AlumnoData" target="universidadpunta3.modelos.Alumno" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.VistaAlumnos" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.VistaAlumnos" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.VistaNotas" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.VistaInscripcion" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.VistaInscripcion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="md" source="universidadpunta3.vistas.VistaInscripcion" target="universidadpunta3.modelos.MateriaData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="md" source="universidadpunta3.vistas.ListadoAlumnosXMaterias" target="universidadpunta3.modelos.MateriaData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.ListadoAlumnos" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="universidadpunta3.modelos.MateriaData" target="universidadpunta3.modelos.Materia" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="universidadpunta3.modelos.CursadaData" target="universidadpunta3.modelos.Materia" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="Cursada" source="universidadpunta3.modelos.CursadaData" target="universidadpunta3.modelos.Cursada" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Alumno" source="universidadpunta3.modelos.CursadaData" target="universidadpunta3.modelos.Alumno" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="md" source="universidadpunta3.vistas.ListadoMaterias" target="universidadpunta3.modelos.MateriaData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.VistaMaterias" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="alumno" source="universidadpunta3.modelos.Cursada" target="universidadpunta3.modelos.Alumno" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.modelos.CursadaData" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="materiaData" source="universidadpunta3.vistas.VistaMaterias" target="universidadpunta3.modelos.MateriaData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="AlumnoData" source="universidadpunta3.vistas.VistaAlumnos" target="universidadpunta3.modelos.AlumnoData" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.VistaMaterias" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.ListadoMaterias" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="materia" source="universidadpunta3.modelos.Cursada" target="universidadpunta3.modelos.Materia" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ad" source="universidadpunta3.vistas.ListadoAlumnos" target="universidadpunta3.modelos.AlumnoData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usa" source="universidadpunta3.vistas.Principal" target="universidadpunta3.vistas.ListadoAlumnosXMaterias" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="cursadaData" source="universidadpunta3.vistas.VistaNotas" target="universidadpunta3.modelos.CursadaData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="CursadaData" source="universidadpunta3.vistas.ListadoAlumnosXMaterias" target="universidadpunta3.modelos.CursadaData" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.ListadoAlumnosXMaterias" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cd" source="universidadpunta3.vistas.VistaInscripcion" target="universidadpunta3.modelos.CursadaData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="universidadpunta3.vistas.VistaNotas" target="universidadpunta3.modelos.Conexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
